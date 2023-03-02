@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "typings/libavoid.d.ts",
   "scripts": {
-    "build": "webpack --mode=production && cp src/generated/libavoid.wasm dist/",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode=production && cp src/generated/libavoid.wasm dist/",
     "api-docs": "jsdoc -c jsdoc.conf.js -d ./api_docs_build/ build/generated_debug/glue.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

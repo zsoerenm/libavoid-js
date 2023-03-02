@@ -106,7 +106,9 @@ def compile(debug=False):
   if debug:
     args += ' -g4 --source-map-base http://localhost:8080/ -s RUNTIME_LOGGING=1 -s ASSERTIONS=1 -s NO_DISABLE_EXCEPTION_CATCHING'
   else:
-    args += '-O2 -s NO_DISABLE_EXCEPTION_CATCHING -s ASSERTIONS=1 -flto'
+    args += '-O2 -s ASSERTIONS=1 -flto -fwasm-exceptions'
+
+#args += '-O3 -s ASSERTIONS=1 -flto -fwasm-exceptions'
 
   execute_command(f"""
   docker run \
@@ -220,7 +222,8 @@ def main():
   logger.info('Build production version')
   generate_bindings(debug=False)
   compile(debug=False)
-  copytree('dist', '../src/generated/', dirs_exist_ok=True)
+  #copytree('dist', '../src/generated/', dirs_exist_ok=True)
+  copytree('dist', '../examples/', dirs_exist_ok=True)
 
 
 if __name__ == '__main__':

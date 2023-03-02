@@ -2,5 +2,6 @@
   "files.associations": {
     "*.idl": "idl"
   },
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "liveServer.settings.port": 5501
 }

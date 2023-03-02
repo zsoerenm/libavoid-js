@@ -1,4 +1,4 @@
-import initAvoid from "./libavoid.js";
+import initAvoidModule from "./libavoid.js";
 
 let Avoid;
 
@@ -438,9 +438,9 @@ function route() {
 
 /* Test 1: full router creation & routing */
 async function test_1() {
-  Avoid = await initAvoid();
+  Avoid = await initAvoidModule();
   const measurements = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     const startTime = performance.now();
     route();
     const endTime = performance.now();
@@ -454,16 +454,18 @@ async function test_1() {
 }
 
 function moveShape(router, shape) {
-  router.moveShape(shape, 120, 200);
+  const max = 400;
+  const min = 50;
+  router.moveShape(shape, Math.random() * (max - min) + min, Math.random() * (max - min) + min);
   router.processTransaction();
 }
 
 /* Test 2: create router once and move one shape repeatedly */
 async function test_2() {
-  Avoid = await initAvoid();
+  Avoid = await initAvoidModule();
   const measurements = [];
   const [router, shape] = prepareRouter();
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     const startTime = performance.now();
     moveShape(router, shape);
     const endTime = performance.now();
@@ -483,10 +485,10 @@ async function test_2() {
 
 /* Test 3: measure processing transactions without actions */
 async function test_3() {
-  Avoid = await initAvoid();
+  Avoid = await initAvoidModule();
   const measurements = [];
   const [router] = prepareRouter();
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     const startTime = performance.now();
     router.processTransaction();
     const endTime = performance.now();
@@ -501,6 +503,6 @@ async function test_3() {
 }
 
 // wait for page loading and run benchmark
-setTimeout(() => test_1(), 2000);
-// setTimeout(() => test_2(), 2000);
-// setTimeout(() => test_3(), 2000);
+//setTimeout(() => test_1(), 2000);
+setTimeout(() => test_2(), 2000);
+ //setTimeout(() => test_3(), 2000);
