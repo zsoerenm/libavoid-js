@@ -223,7 +223,7 @@ def main():
   generate_bindings(debug=False)
   compile(debug=False)
   #copytree('dist', '../src/generated/', dirs_exist_ok=True)
-  copytree('dist', '../examples/', dirs_exist_ok=True)
+  #copytree('dist', '../examples/', dirs_exist_ok=True)
 
 
 if __name__ == '__main__':

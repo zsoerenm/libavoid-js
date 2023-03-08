@@ -47,6 +47,7 @@ declare interface Polygon {}
 
 declare interface Rectangle extends Polygon {
   new (centre: Point, width: number, height: number): Rectangle;
+  new (topLeft: Point, bottomRight: Point): Rectangle;
 }
 
 declare interface Obstacle {
@@ -80,6 +81,6 @@ export interface Avoid {
 
 export namespace AvoidLib {
   const avoidLib: Avoid | null;
-  function load(): Promise<void>;
+  function load(filePath?: string): Promise<void>;
   function getInstance(): Avoid;
 }
