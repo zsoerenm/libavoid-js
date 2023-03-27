@@ -28,6 +28,7 @@ declare interface PolyLine {
 declare interface ConnEnd {
   new (point: Point): ConnEnd;
   new (shapeRef: ShapeRef, classId: number): ConnEnd;
+  createConnEndFromJunctionRef(JunctionRef: JunctionRef, classId: number): ConnEnd;
 }
 
 declare interface ConnRef {
@@ -41,6 +42,15 @@ declare interface ConnRef {
 
   setHateCrossings(value: boolean): void;
   doesHateCrossings(): boolean;
+}
+
+declare interface JunctionRef {
+  new (router: Router, point: Point, id?: number): JunctionRef;
+
+  position(): Point;
+  setPositionFixed(fixed: boolean): void;
+  positionFixed(): boolean;
+  recommendedPosition(): Point;
 }
 
 declare interface Polygon {}
@@ -75,6 +85,7 @@ export interface Avoid {
   Router: Router;
   Obstacle: Obstacle;
   ShapeRef: ShapeRef;
+  JunctionRef: JunctionRef;
 
   destroy(obj: any): void;
 }

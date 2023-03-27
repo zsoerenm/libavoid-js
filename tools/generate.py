@@ -160,7 +160,7 @@ def main():
   # build sources
   adaptagrams_sources_path = Path('./adaptagrams')
   if adaptagrams_sources_path.exists() != True or adaptagrams_sources_path.is_dir() != True:
-    execute_command('git clone https://github.com/Aksem/adaptagrams.git', logger)
+    execute_command('git clone --branch ss/webidl-adjustments https://github.com/zsoerenm/adaptagrams.git', logger)
     patch_adaptagrams_sources('./adaptagrams/')
   
   # build tools: webidl_binder
@@ -222,7 +222,7 @@ def main():
   logger.info('Build production version')
   generate_bindings(debug=False)
   compile(debug=False)
-  #copytree('dist', '../src/generated/', dirs_exist_ok=True)
+  copytree('dist', '../src/generated/', dirs_exist_ok=True)
   #copytree('dist', '../examples/', dirs_exist_ok=True)
 
 
