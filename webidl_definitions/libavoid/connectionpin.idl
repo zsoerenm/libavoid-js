@@ -7,16 +7,19 @@ interface ShapeConnectionPin {
       double xOffset, double yOffset,
       boolean proportional, double insideOffset,
       ConnDirFlags visDirs);
-  
+
   void ShapeConnectionPin(ShapeRef shape, unsigned long classId,
       double xOffset, double yOffset,
-      double insideOffset, ConnDirFlags visDirs);
+      boolean proportional, double insideOffset);
 
   void ShapeConnectionPin(JunctionRef junction, unsigned long classId,
       optional ConnDirFlags visDirs);
   
   void setConnectionCost(double cost);
   [Const, Value] Point position([Ref] optional Polygon newPoly);
+
+  void updateRelativePosition([Ref] Point point);
+  void updateVisibility(ConnDirFlags visDirs);
 
   ConnDirFlags directions();
   void setExclusive(boolean exclusive);

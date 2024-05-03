@@ -4,5 +4,11 @@ typedef sequence<JunctionRef> JunctionRefList;
 interface JunctionRef : Obstacle {
   void JunctionRef(Router router, [Ref] Point position, optional unsigned long id = 0);
 
+  unsigned long id();
   [Value] Point position();
+
+  void setPositionFixed(boolean fixed);
+  [Const] boolean positionFixed();
+
+  [Value] Point recommendedPosition();
 };

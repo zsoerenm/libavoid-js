@@ -2,9 +2,13 @@ import initAvoid from "./generated/libavoid.js";
 
 export const AvoidLib = {
   avoidLib: undefined,
-  async load() {
+  async load(filePath = undefined) {
     if (!this.avoidLib) {
-      this.avoidLib = await initAvoid();
+      function locateFile(path, prefix) {
+        if (filePath !== undefined && path.endsWith(".wasm")) return filePath
+        return prefix + path
+      }
+      this.avoidLib = await initAvoid({'locateFile' : locateFile});
     } else {
       console.log("Avoid library is already initialized");
     }

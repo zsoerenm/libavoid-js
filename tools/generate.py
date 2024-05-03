@@ -106,14 +106,16 @@ def compile(debug=False):
   if debug:
     args += ' -g4 --source-map-base http://localhost:8080/ -s RUNTIME_LOGGING=1 -s ASSERTIONS=1 -s NO_DISABLE_EXCEPTION_CATCHING'
   else:
-    args += '-O2 -s NO_DISABLE_EXCEPTION_CATCHING -s ASSERTIONS=1 -flto'
+    args += '-O2 -s ASSERTIONS=1 -flto -fwasm-exceptions'
+
+#args += '-O3 -s ASSERTIONS=1 -flto -fwasm-exceptions'
 
   execute_command(f"""
   docker run \
   --rm \
   -v {str(pwd)}:/src -w /src/ \
   -u {os.getuid()}:{os.getgid()} \
-  emscripten/emsdk:3.1.8 \
+  emscripten/emsdk:3.1.59 \
   emcc {args} \
     --closure 1 \
     -s LLD_REPORT_UNDEFINED \
@@ -157,9 +159,11 @@ def main():
 
   # build sources
   adaptagrams_sources_path = Path('./adaptagrams')
-  if adaptagrams_sources_path.exists() != True or adaptagrams_sources_path.is_dir() != True:
-    execute_command('git clone https://github.com/Aksem/adaptagrams.git', logger)
-    patch_adaptagrams_sources('./adaptagrams/')
+  execute_command('rsync -a ../adaptagrams ./ --exclude .git', logger)
+  patch_adaptagrams_sources('./adaptagrams/')
+  #if adaptagrams_sources_path.exists() != True or adaptagrams_sources_path.is_dir() != True:
+  #  execute_command('git clone --branch ss/webidl-adjustments https://github.com/zsoerenm/adaptagrams.git', logger)
+  #  patch_adaptagrams_sources('./adaptagrams/')
   
   # build tools: webidl_binder
   webild_binder_sources_path = Path('./webidl-embindgen')
@@ -221,6 +225,7 @@ def main():
   generate_bindings(debug=False)
   compile(debug=False)
   copytree('dist', '../src/generated/', dirs_exist_ok=True)
+  #copytree('dist', '../examples/', dirs_exist_ok=True)
 
 
 if __name__ == '__main__':
