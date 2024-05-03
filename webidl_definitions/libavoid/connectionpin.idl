@@ -18,6 +18,9 @@ interface ShapeConnectionPin {
   void setConnectionCost(double cost);
   [Const, Value] Point position([Ref] optional Polygon newPoly);
 
+  void updateRelativePosition([Ref] Point point);
+  void updateVisibility(ConnDirFlags visDirs);
+
   ConnDirFlags directions();
   void setExclusive(boolean exclusive);
   boolean isExclusive();

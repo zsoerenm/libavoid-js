@@ -16,4 +16,6 @@ interface ShapeRef : Obstacle {
   [Value] Point position();
 
   void setNewPoly([Ref] Polygon poly);
+
+  void transformConnectionPinPositions(Avoid_ShapeTransformationType type);
 };

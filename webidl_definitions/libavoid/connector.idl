@@ -30,6 +30,9 @@ interface ConnRef {
 
   [Ref] PolyLine displayRoute();
 
+  [Value] ConnEnd getSourceEndpoint();
+  [Value] ConnEnd getDestEndpoint();
+
   void setHateCrossings(boolean value);
   [Const] boolean doesHateCrossings();
 };
