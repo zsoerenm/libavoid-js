@@ -115,7 +115,7 @@ def compile(debug=False):
   --rm \
   -v {str(pwd)}:/src -w /src/ \
   -u {os.getuid()}:{os.getgid()} \
-  emscripten/emsdk:3.1.59 \
+  emscripten/emsdk:3.1.65 \
   emcc {args} \
     --closure 1 \
     -s LLD_REPORT_UNDEFINED \
